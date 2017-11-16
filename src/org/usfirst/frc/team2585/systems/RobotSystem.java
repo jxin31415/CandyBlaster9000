@@ -1,10 +1,9 @@
-package systems;
+package org.usfirst.frc.team2585.systems;
 
 
 import org.impact2585.lib2585.Destroyable;
+import org.usfirst.frc.team2585.input.InputMethod;
 import org.usfirst.frc.team2585.robot.Environment;
-
-import input.InputMethod;
 
 /**
  * Parent class of the systems that will run on the robot

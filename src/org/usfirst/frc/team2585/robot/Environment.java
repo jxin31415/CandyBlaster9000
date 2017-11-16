@@ -1,9 +1,8 @@
 package org.usfirst.frc.team2585.robot;
 
 import org.impact2585.lib2585.RobotEnvironment;
-
-import input.InputMethod;
-import input.XBoxInput;
+import org.usfirst.frc.team2585.input.InputMethod;
+import org.usfirst.frc.team2585.input.XBoxInput;
 
 /**
  * A class containing the robot's systems and input

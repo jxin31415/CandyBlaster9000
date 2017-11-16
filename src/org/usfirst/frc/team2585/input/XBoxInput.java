@@ -1,4 +1,4 @@
-package input;
+package org.usfirst.frc.team2585.input;
 
 import org.impact2585.lib2585.XboxConstants;
 
