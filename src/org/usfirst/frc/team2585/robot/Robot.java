@@ -1,10 +1,6 @@
 package org.usfirst.frc.team2585.robot;
 
 import org.impact2585.lib2585.ExecuterBasedRobot;
-import org.omg.CORBA.Environment;
-
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,7 +19,7 @@ public class Robot extends ExecuterBasedRobot {
 	 */
 	@Override
 	public void robotInit() {
-
+		environ = new Environment(this);
 	}
 	
 	/* (non-Javadoc)
@@ -31,7 +27,7 @@ public class Robot extends ExecuterBasedRobot {
 	 */
 	@Override 
 	public void teleopInit() {
-
+		setExecuter(new TeleopExecutor(environ));
 	}
 
 	/**
