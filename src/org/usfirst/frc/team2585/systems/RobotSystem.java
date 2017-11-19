@@ -8,7 +8,7 @@ import org.usfirst.frc.team2585.robot.Environment;
 /**
  * Parent class of the systems that will run on the robot
  */
-public abstract class RobotSystem implements Destroyable, Initializable {
+public abstract class RobotSystem implements Destroyable, Initializable, Runnable {
 	protected InputMethod input;
 	
 	/* (non-Javadoc)

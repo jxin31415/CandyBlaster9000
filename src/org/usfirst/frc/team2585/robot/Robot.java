@@ -10,6 +10,7 @@ import org.impact2585.lib2585.ExecuterBasedRobot;
  * directory.
  */
 public class Robot extends ExecuterBasedRobot {
+	private static final long serialVersionUID = -6422460822926963853L;
 	
 	private Environment environ;
 
