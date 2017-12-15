@@ -27,9 +27,16 @@ public abstract class InputMethod {
 	}
 	
 	/**
-	 * @return a boolean whether or not the high five motor should be running
+	 * @return a boolean whether or not the high five arm should move up
 	 */
-	public boolean shouldHighFive() {
+	public boolean shouldHighFiveUp() {
+		return false;
+	}
+	
+	/**
+	 * @return a boolean whether or not the high five arm should move down
+	 */
+	public boolean shouldHighFiveDown() {
 		return false;
 	}
 }

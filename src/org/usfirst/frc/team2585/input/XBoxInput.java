@@ -42,12 +42,20 @@ public class XBoxInput extends InputMethod {
 	public boolean shouldShoot() {
 		return controller.getRawAxis(XboxConstants.RIGHT_TRIGGER) > minTriggerActuation;
 	}
-	
+
 	/* (non-Javadoc)
-	 * @see org.usfirst.frc.team2585.input.InputMethod#shouldHighFive()
+	 * @see org.usfirst.frc.team2585.input.InputMethod#shouldHighFiveUp()
 	 */
 	@Override
-	public boolean shouldHighFive() {
-		return controller.getRawAxis(XboxConstants.LEFT_TRIGGER) > minTriggerActuation;
+	public boolean shouldHighFiveUp() {
+		return controller.getRawButton(XboxConstants.B_BUTTON);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.usfirst.frc.team2585.input.InputMethod#shouldHighFiveDown()
+	 */
+	@Override
+	public boolean shouldHighFiveDown() {
+		return controller.getRawButton(XboxConstants.A_BUTTON);
 	}
 }

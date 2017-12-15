@@ -14,8 +14,9 @@ public class HighFiveSystemTest {
 	private TestInput input;
 	private TestHighFiveSystem highFiveSystem;
 	
-	boolean shouldHighFiveInput;
-	long timePassed;
+	boolean shouldHighFiveUpInput;
+	boolean shouldHighFiveDownInput;
+	
 	double armSpeedOutput;
 	
 	/**
@@ -34,99 +35,67 @@ public class HighFiveSystemTest {
 	 */
 	@Test
 	public void defaultsToZero() {
-		shouldHighFiveInput = false;
+		shouldHighFiveUpInput = false;
+		shouldHighFiveDownInput = false;
 		highFiveSystem.run();
 		Assert.assertTrue(armSpeedOutput == 0);
 	}
 	
 	/**
-	 * Tests that when the user gives input, the motor is set to run forward
+	 * Tests that the arm speed is positive when the user high fives up
 	 */
 	@Test
-	public void motorRunsWithInput() {
-		shouldHighFiveInput = true;
+	public void highFivesUp() {
+		shouldHighFiveUpInput = true;
 		highFiveSystem.run();
 		Assert.assertTrue(armSpeedOutput>0);
 	}
 	
 	/**
-	 * Tests that the motor continues to run forward after input has been
-	 * given and time has passed
+	 * Tests that the arm speed is negative when the user high fives up
 	 */
 	@Test
-	public void continuesMovingForward() {
-		timePassed=(long) 0.1*highFiveSystem.highFiveLength;
-		shouldHighFiveInput = true;
+	public void highFivesDown() {
+		shouldHighFiveDownInput = true;
 		highFiveSystem.run();
-		Assert.assertTrue(armSpeedOutput>0);
-	}
-	
-	/**
-	 * Tests that the motor continues running even after the high five button is released
-	 */
-	@Test
-
-	public void continuesAfterButtonReleased() {
-		timePassed=(long) 0.1*highFiveSystem.highFiveLength;
-		shouldHighFiveInput = true;
-		highFiveSystem.run();
-		shouldHighFiveInput = false;
-		highFiveSystem.run();
-		Assert.assertTrue(armSpeedOutput>0);
-	}
-	
-	
-	/**
-	 * Tests that the motor starts to move back after running for half of the
-	 * high five time
-	 */
-	@Test
-	public void movesBack() {
-		timePassed = (long) (0.9*highFiveSystem.highFiveLength);
-		shouldHighFiveInput = true;
-		highFiveSystem.run();
-
 		Assert.assertTrue(armSpeedOutput<0);
 	}
 	
 	/**
-	 * Tests that the motor is turned off after the time of the highfive is over
+	 * Tests that the arm doesn't move when both buttons are pressed
 	 */
 	@Test
-	public void stopsMoving() {
-		shouldHighFiveInput = true;
-		
-		timePassed = (long) (0.9*highFiveSystem.highFiveLength);
+	public void bothPressed() {
+		shouldHighFiveDownInput = true;
+		shouldHighFiveUpInput = true;
 		highFiveSystem.run();
-
-		timePassed = (long) (1.1*highFiveSystem.highFiveLength);		
-		highFiveSystem.run();
-
 		Assert.assertTrue(armSpeedOutput==0);
 	}
 	
 	/**
-	 * Tests that the high five sequence can be run twice
+	 * Tests that the output returns to zero after releasing the highFiveUp button
 	 */
 	@Test
-	public void canRunTwice() {
-		shouldHighFiveInput = true;
-		
-		timePassed = (long) (0.9*highFiveSystem.highFiveLength);
+	public void returnsToZeroAfterUp() {
+		shouldHighFiveUpInput = true;
 		highFiveSystem.run();
-
-		timePassed = (long) (1.1*highFiveSystem.highFiveLength);		
+		shouldHighFiveUpInput = false;
 		highFiveSystem.run();
 		
-		shouldHighFiveInput = false;
+		Assert.assertTrue(armSpeedOutput==0);
+	}
+	
+	/**
+	 * Tests that the output returns to zero after releasing the highFiveDown button
+	 */
+	@Test
+	public void returnsToZeroAfterDown() {
+		shouldHighFiveDownInput = true;
+		highFiveSystem.run();
+		shouldHighFiveDownInput = false;
 		highFiveSystem.run();
 		
-		shouldHighFiveInput = true;
-		timePassed = (long) (0.2*highFiveSystem.highFiveLength);
-		highFiveSystem.run();
-		
-
-		Assert.assertTrue(armSpeedOutput>0);
+		Assert.assertTrue(armSpeedOutput==0);
 	}
 	
 	
@@ -135,11 +104,16 @@ public class HighFiveSystemTest {
 	 */
 	private class TestInput extends InputMethod {
 		/* (non-Javadoc)
-		 * @see org.usfirst.frc.team2585.input.InputMethod#shouldHighFive()
+		 * @see org.usfirst.frc.team2585.input.InputMethod#shouldHighFiveUp()
 		 */
 		@Override
-		public boolean shouldHighFive() {
-			return shouldHighFiveInput;
+		public boolean shouldHighFiveUp() {
+			return shouldHighFiveUpInput;
+		}
+		
+		@Override
+		public boolean shouldHighFiveDown() {
+			return shouldHighFiveDownInput;
 		}
 	}
 	
@@ -147,13 +121,6 @@ public class HighFiveSystemTest {
 	 * A testable High Five System
 	 */
 	private class TestHighFiveSystem extends HighFiveSystem {
-		/* (non-Javadoc)
-		 * @see org.usfirst.frc.team2585.systems.HighFiveSystem#getTimeSinceHighFiveStarted()
-		 */
-		@Override
-		public long getTimeSinceHighFiveStarted() {
-			return timePassed;
-		}
 		
 		/* (non-Javadoc)
 		 * @see org.usfirst.frc.team2585.systems.HighFiveSystem#setArmSpeed(double)
